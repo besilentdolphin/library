@@ -1291,13 +1291,13 @@
     },
     {
         "collectionNumber": 130,
-        "title": "নেমেসিস",
-        "author": "Mohammad Nazim Uddin",
-        "purchaseDate": "TBD",
+        "title": "চক্ষে আমার তৃষ্ণা",
+        "author": "Humayun Ahmed",
+        "purchaseDate": "23 June 2026",
         "purpose": "Story Reading",
-        "genre": "Thriller",
-        "image": "images/nemesis.jpg",
-        "firstPageImage": "images/nemesis-page.jpg"
+        "genre": "Fiction",
+        "image": "images/chokkhetrishna.jpg",
+        "firstPageImage": "images/chokkhetrishnafirst.jpg"
     },
     {
         "collectionNumber": 131,
@@ -2218,5 +2218,79 @@
         "genre": "Liberation War",
         "image": "images/shyamol-chaya.jpg",
         "firstPageImage": "images/shyamol-chaya-page.jpg"
+    },
+    [
+    {
+        "collectionNumber": 223,
+        "title": "নেমেসিস",
+        "author": "Mohammad Nazim Uddin",
+        "purchaseDate": "TBD",
+        "purpose": "Story Reading",
+        "genre": "Thriller",
+        "image": "images/nemesis.jpg",
+        "firstPageImage": "images/nemesis-page.jpg"
+    },
+    {
+        "collectionNumber": 224,
+        "title": "কন্ট্রাক্ট",
+        "author": "Mohammad Nazim Uddin",
+        "purchaseDate": "TBD",
+        "purpose": "Story Reading",
+        "genre": "Thriller",
+        "image": "images/contract.jpg",
+        "firstPageImage": "images/contract-page.jpg"
+    },
+    {
+        "collectionNumber": 225,
+        "title": "নেক্সাস",
+        "author": "Mohammad Nazim Uddin",
+        "purchaseDate": "TBD",
+        "purpose": "Story Reading",
+        "genre": "Thriller",
+        "image": "images/nexus.jpg",
+        "firstPageImage": "images/nexus-page.jpg"
+    },
+    {
+        "collectionNumber": 226,
+        "title": "কনফেশন",
+        "author": "Mohammad Nazim Uddin",
+        "purchaseDate": "TBD",
+        "purpose": "Story Reading",
+        "genre": "Thriller",
+        "image": "images/confession.jpg",
+        "firstPageImage": "images/confession-page.jpg"
+    },
+    {
+        "collectionNumber": 227,
+        "title": "করাচি",
+        "author": "Mohammad Nazim Uddin",
+        "purchaseDate": "TBD",
+        "purpose": "Story Reading",
+        "genre": "Thriller",
+        "image": "images/karachi.jpg",
+        "firstPageImage": "images/karachi-page.jpg"
+    },
+    {
+        "collectionNumber": 228,
+        "title": "নেক্সট",
+        "author": "Mohammad Nazim Uddin",
+        "purchaseDate": "TBD",
+        "purpose": "Story Reading",
+        "genre": "Thriller",
+        "image": "images/next.jpg",
+        "firstPageImage": "images/next-page.jpg"
+    },
+    {
+        "collectionNumber": 228,
+        "title": "কন্ট্রোল",
+        "author": "Mohammad Nazim Uddin",
+        "purchaseDate": "TBD",
+        "purpose": "Story Reading",
+        "genre": "Thriller",
+        "image": "images/control.jpg",
+        "firstPageImage": "images/control-page.jpg"
     }
+
+    
+]
 ]
