@@ -123,7 +123,7 @@ const App = {
         );
 
         this.state.filteredBooks = filtered;
-        this.state.currentPage = 1; // Reset to page 1 on filter
+        this.state.currentPage = 1; 
         
         // Push filter reset to history
         history.pushState({ type: 'page', page: 1 }, '', '#page-1');
@@ -208,6 +208,9 @@ const App = {
                 const span = document.createElement('span');
                 span.textContent = '…';
                 span.style.padding = '0 10px';
+                span.style.display = 'flex';
+                span.style.alignItems = 'center';
+                span.style.color = 'var(--text-dim)';
                 this.DOM.pagination.appendChild(span);
             } else {
                 this.DOM.pagination.appendChild(makeBtn(p, p, false, p === currentPage));
@@ -215,6 +218,34 @@ const App = {
         });
 
         this.DOM.pagination.appendChild(makeBtn('<i class="fa-solid fa-chevron-right"></i>', currentPage + 1, currentPage === totalPages));
+
+        // --- Jump to Page Input ---
+        const jumpWrap = document.createElement('div');
+        jumpWrap.className = 'page-jump-wrap';
+        jumpWrap.innerHTML = `<span>Jump:</span>`;
+        
+        const jumpInput = document.createElement('input');
+        jumpInput.type = 'number';
+        jumpInput.className = 'page-jump-input';
+        jumpInput.min = 1;
+        jumpInput.max = totalPages;
+        jumpInput.placeholder = '..';
+
+        // Listen for "Enter" key press
+        jumpInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                let targetPage = parseInt(e.target.value);
+                if (targetPage >= 1 && targetPage <= totalPages) {
+                    this.changePage(targetPage);
+                } else {
+                    alert(`Please enter a valid page number between 1 and ${totalPages}`);
+                    e.target.value = '';
+                }
+            }
+        });
+
+        jumpWrap.appendChild(jumpInput);
+        this.DOM.pagination.appendChild(jumpWrap);
     },
 
     changePage(page, fromPopState = false) {
@@ -350,19 +381,15 @@ const App = {
             if (e.key === 'Escape' && DOM.modal.classList.contains('open')) this.closeModal(); 
         });
         
-        // --- SMART BACK BUTTON LOGIC ADDED HERE ---
+        // Smart Back Button Logic (History API)
         window.addEventListener('popstate', (e) => {
-            // First Priority: Close Modal if open
             if (DOM.modal.classList.contains('open')) {
                 this.closeModal(true); 
                 return;
             }
-
-            // Second Priority: Change Page based on browser history state
             if (e.state && e.state.type === 'page') {
                 this.changePage(e.state.page, true); 
             } else {
-                // Default fail-safe if no state
                 this.changePage(1, true); 
             }
         });

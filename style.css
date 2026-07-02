@@ -230,3 +230,47 @@ body {
     .modal-info-center { padding: 25px 20px; }
     .modal-first-page-side { height: 350px; }
 }
+/* ── JUMP TO PAGE (ADD THIS TO YOUR CSS) ── */
+.pagination { 
+    display: flex; justify-content: center; align-items: center; 
+    gap: 8px; margin: 30px 0 60px; flex-wrap: wrap; 
+}
+.page-jump-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 15px;
+    color: var(--text-dim);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+.page-jump-input {
+    width: 50px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text);
+    text-align: center;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    outline: none;
+    backdrop-filter: blur(12px);
+    transition: 0.3s;
+}
+.page-jump-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+.theme-light .page-jump-input:focus {
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+/* Hide the default up/down arrows in the number input */
+.page-jump-input::-webkit-outer-spin-button,
+.page-jump-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.page-jump-input[type=number] {
+    -moz-appearance: textfield;
+}
