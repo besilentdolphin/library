@@ -14,7 +14,6 @@
     --font-sans: 'Inter', sans-serif;
 }
 
-/* ── DARK THEME ── */
 .theme-dark {
     --overlay:      rgba(10, 15, 25, 0.75); 
     --bg-card:      rgba(20, 30, 45, 0.65);
@@ -30,7 +29,6 @@
     --shelf-shadow: 0 16px 20px rgba(0,0,0,0.8);
 }
 
-/* ── LIGHT THEME ── */
 .theme-light {
     --overlay:      rgba(30, 40, 50, 0.6); 
     --bg-card:      rgba(255, 255, 255, 0.85);
@@ -47,25 +45,28 @@
 }
 
 html { scroll-behavior: smooth; }
-body { font-family: var(--font-sans); color: var(--text); min-height: 100vh; overflow-x: hidden; transition: color 0.5s var(--ease); }
+body { 
+    font-family: var(--font-sans); color: var(--text); min-height: 100vh; overflow-x: hidden; transition: color 0.5s var(--ease);
+    padding-top: 72px; /* Prevent content from hiding under fixed navbar */
+}
 ::selection { background: var(--accent); color: #fff; }
 
-.bg-photo {
-    position: fixed; inset: 0; z-index: -5;
-    background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
-    transform: scale(1.02);
-}
+.bg-photo { position: fixed; inset: 0; z-index: -5; background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; transform: scale(1.02); }
 .bg-overlay { position: fixed; inset: 0; z-index: -4; background: var(--overlay); transition: background 0.5s var(--ease); }
 #tsparticles { position: fixed; inset: 0; z-index: -3; pointer-events: none; }
 
 .glass-panel { background: var(--bg-card); backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%); border: 1px solid var(--border); box-shadow: var(--shadow-card); }
 
 /* NAVBAR */
-.navbar { position: sticky; top: 0; z-index: 200; padding: 0 40px; height: 72px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+.navbar { 
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 999; 
+    padding: 0 40px; height: 72px; display: flex; align-items: center; justify-content: space-between; 
+    border-bottom: 1px solid var(--border); border-radius: 0 0 var(--radius-lg) var(--radius-lg); 
+}
 .nav-left { display: flex; align-items: center; gap: 40px; }
-.nav-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; white-space: nowrap; }
 .logo-amp { font-style: italic; font-weight: 400; opacity: 0.8; }
-.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links { display: flex; gap: 24px; list-style: none; margin-left: 20px;}
 .nav-links a { text-decoration: none; color: var(--text-dim); font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
 .nav-links a:hover { color: var(--accent); }
 .nav-right { display: flex; gap: 12px; }
@@ -74,12 +75,12 @@ body { font-family: var(--font-sans); color: var(--text); min-height: 100vh; ove
 
 /* HERO */
 .container { max-width: 1320px; margin: 0 auto; padding: 0 28px; }
-.hero { padding: 90px 0 50px; display: flex; justify-content: center; }
+.hero { padding: 60px 0 40px; display: flex; justify-content: center; }
 .hero-inner { text-align: center; padding: 40px 50px; max-width: 700px; width: 100%; border-radius: var(--radius-xl); }
 .hero-eyebrow { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.hero-title { font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.15; color: var(--text); margin-bottom: 12px; }
+.hero-title { font-family: var(--font-serif); font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.15; color: var(--text); margin-bottom: 12px; }
 .hero-title em { color: var(--accent); font-weight: 400; }
-.hero-subtitle { font-size: 1.05rem; color: var(--text-dim); font-weight: 300; }
+.hero-subtitle { font-size: 1rem; color: var(--text-dim); font-weight: 300; }
 
 /* CONTROLS */
 .controls { display: flex; gap: 16px; margin: 20px 0 20px; flex-wrap: wrap; }
@@ -98,24 +99,24 @@ body { font-family: var(--font-sans); color: var(--text); min-height: 100vh; ove
 .stat-pill i { color: var(--accent); }
 
 /* BOOKS GRID */
-.books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 50px 30px; padding-bottom: 40px; min-height: 300px; }
+.books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 50px 25px; padding-bottom: 40px; min-height: 300px; }
 .book-card { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; outline: none; animation: card-in 0.6s var(--ease-spring) both; }
 @keyframes card-in { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .book-cover-container { position: relative; width: 100%; display: flex; justify-content: center; }
-.book-cover-container img { width: 82%; aspect-ratio: 2 / 3; object-fit: fill; border-radius: 4px 10px 10px 4px; transform: perspective(1000px) rotateY(-18deg); box-shadow: inset 4px 0 10px rgba(0,0,0,0.15), 8px 16px 24px rgba(0,0,0,0.6); transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+.book-cover-container img { width: 85%; aspect-ratio: 2 / 3; object-fit: fill; border-radius: 4px 10px 10px 4px; transform: perspective(1000px) rotateY(-18deg); box-shadow: inset 4px 0 10px rgba(0,0,0,0.15), 8px 16px 24px rgba(0,0,0,0.6); transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
 .book-card:hover .book-cover-container img { transform: perspective(1000px) rotateY(0deg) scale(1.05) translateY(-6px); box-shadow: inset 2px 0 5px rgba(0,0,0,0.1), 12px 24px 32px rgba(0,0,0,0.8); }
-.shelf { width: 94%; height: 10px; background: var(--shelf-body); border-top: 1px solid var(--shelf-top); border-bottom: 4px solid rgba(0,0,0,0.5); border-radius: 3px; position: relative; top: -2px; z-index: 1; box-shadow: var(--shelf-shadow); }
-.collection-badge { position: absolute; top: 10px; left: 12px; z-index: 10; background: rgba(0,0,0,0.6); color: #fff; backdrop-filter: blur(8px); padding: 4px 10px; font-size: 0.75rem; font-weight: 600; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); }
-.favorite-btn { position: absolute; top: 10px; right: 12px; z-index: 10; width: 34px; height: 34px; border-radius: 50%; background: rgba(0,0,0,0.5); color: #fff; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s; }
+.shelf { width: 96%; height: 10px; background: var(--shelf-body); border-top: 1px solid var(--shelf-top); border-bottom: 4px solid rgba(0,0,0,0.5); border-radius: 3px; position: relative; top: -2px; z-index: 1; box-shadow: var(--shelf-shadow); }
+.collection-badge { position: absolute; top: 10px; left: 8px; z-index: 10; background: rgba(0,0,0,0.7); color: #fff; backdrop-filter: blur(8px); padding: 4px 8px; font-size: 0.7rem; font-weight: 600; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); }
+.favorite-btn { position: absolute; top: 10px; right: 8px; z-index: 10; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.6); color: #fff; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s; }
 .favorite-btn:hover, .favorite-btn.favorited { background: var(--accent); border-color: var(--accent); transform: scale(1.1); }
 .book-info { margin-top: 16px; text-align: center; }
-.book-info h3 { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text); line-height: 1.25; }
+.book-info h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600; color: var(--text); line-height: 1.25; }
 .book-card:hover .book-info h3 { color: var(--accent); }
-.book-info p { font-size: 0.85rem; font-weight: 400; color: var(--text-dim); margin-top: 4px; }
+.book-info p { font-size: 0.8rem; font-weight: 400; color: var(--text-dim); margin-top: 4px; }
 
 /* PAGINATION */
-.pagination { display: flex; justify-content: center; gap: 8px; margin: 30px 0 60px; }
-.pagination button { min-width: 42px; height: 42px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-card); color: var(--text-dim); backdrop-filter: blur(12px); font-family: var(--font-sans); font-weight: 500; cursor: pointer; transition: 0.3s; }
+.pagination { display: flex; justify-content: center; gap: 6px; margin: 30px 0 60px; flex-wrap: wrap; }
+.pagination button { min-width: 40px; height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-card); color: var(--text-dim); backdrop-filter: blur(12px); font-family: var(--font-sans); font-weight: 500; cursor: pointer; transition: 0.3s; }
 .pagination button:hover:not(:disabled), .pagination button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
 /* CONTACT */
@@ -134,7 +135,7 @@ body { font-family: var(--font-sans); color: var(--text); min-height: 100vh; ove
 .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
 
 .book-wrapper {
-    position: relative; z-index: 1; width: 100%; max-width: 1050px; /* Made wider for 3 columns */
+    position: relative; z-index: 1; width: 100%; max-width: 1050px;
     background: #111; padding: 6px; border-radius: 6px 12px 12px 6px;
     box-shadow: 0 30px 60px rgba(0,0,0,0.9); display: flex;
 }
@@ -169,33 +170,34 @@ body { font-family: var(--font-sans); color: var(--text); min-height: 100vh; ove
 .modal-close:hover { background: #ef4444; color: #fff; border-color: #ef4444; transform: rotate(90deg); }
 
 .modal-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; background: var(--accent); color: #fff; font-weight: 600; font-size: 0.75rem; margin-bottom: 12px; width: fit-content; }
-.modal-book-title { font-family: var(--font-serif); font-size: 2rem; line-height: 1.2; margin-bottom: 8px; }
-.modal-author { font-size: 1.05rem; font-weight: 400; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.modal-book-title { font-family: var(--font-serif); font-size: 1.8rem; line-height: 1.2; margin-bottom: 8px; }
+.modal-author { font-size: 1rem; font-weight: 400; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
 .modal-divider { height: 1px; background: linear-gradient(to right, rgba(255,255,255,0.1), transparent); margin: 20px 0; }
 .theme-light .modal-divider { background: linear-gradient(to right, rgba(0,0,0,0.1), transparent); }
 
 .modal-meta { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
 .meta-item { display: flex; flex-direction: column; gap: 4px; }
 .meta-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); display: flex; align-items: center; gap: 8px; }
-.meta-value { font-size: 1.05rem; font-weight: 400; }
+.meta-value { font-size: 1rem; font-weight: 400; }
 
 .modal-fav-btn {
-    padding: 12px 24px; border-radius: 30px; border: 1px solid var(--border);
-    background: rgba(255,255,255,0.05); color: inherit; font-weight: 500;
-    cursor: pointer; transition: 0.3s; width: fit-content; display: flex; align-items: center; gap: 10px; margin-top: auto;
+    padding: 12px 20px; border-radius: 30px; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.05); color: inherit; font-weight: 500; font-size: 0.9rem;
+    cursor: pointer; transition: 0.3s; width: fit-content; display: flex; align-items: center; gap: 8px; margin-top: auto;
 }
 .theme-light .modal-fav-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.2); }
 .modal-fav-btn:hover, .modal-fav-btn.favorited { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-/* 3. Right Column: First Page Image */
+/* 3. Right Column: First Page Image (Fixed Object Fit) */
 .modal-first-page-side {
     flex: 1; background: #0f172a;
     display: flex; justify-content: center; align-items: center;
-    overflow: hidden;
+    overflow: hidden; padding: 10px;
 }
-.modal-first-page-side img { width: 100%; height: 100%; object-fit: cover; }
+/* Fixed here: object-fit contain makes sure the full page is visible and not cropped */
+.modal-first-page-side img { width: 100%; height: 100%; object-fit: contain; }
 
-/* ── RESPONSIVE ── */
+/* ── PHONE / RESPONSIVE OPTIMIZATION ── */
 @media (max-width: 900px) {
     .nav-links { display: none; }
     .book-open { flex-direction: column; overflow-y: auto; max-height: 85vh; }
@@ -203,10 +205,28 @@ body { font-family: var(--font-sans); color: var(--text); min-height: 100vh; ove
     .modal-first-page-side { height: 400px; }
 }
 @media (max-width: 640px) {
-    .navbar { padding: 0 20px; }
-    .container { padding: 0 20px; }
-    .hero-title { font-size: 2.2rem; }
-    .books-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 40px 20px; }
-    .logo-text { display: none; }
-    .modern-input { width: 100%; min-width: 100%; }
+    body { padding-top: 60px; } /* Adjust for smaller navbar */
+    .navbar { padding: 0 16px; height: 60px; }
+    
+    /* Make Title Visible but fit properly */
+    .nav-left { gap: 10px; }
+    .nav-logo { font-size: 1.1rem; gap: 6px; }
+    .logo-text { display: block; } 
+
+    .nav-right { gap: 8px; }
+    .icon-btn { width: 36px; height: 36px; font-size: 0.9rem; }
+    
+    .container { padding: 0 16px; }
+    .hero-inner { padding: 30px 20px; }
+    .hero-title { font-size: 2rem; }
+    
+    .controls { flex-direction: column; gap: 10px; }
+    .modern-input { width: 100%; min-width: 100%; padding: 4px 16px; }
+    
+    .books-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 30px 15px; }
+    
+    .modal { padding: 10px; }
+    .modal-cover-side { padding: 20px; }
+    .modal-info-center { padding: 25px 20px; }
+    .modal-first-page-side { height: 350px; }
 }

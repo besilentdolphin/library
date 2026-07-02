@@ -37,18 +37,15 @@ const App = {
             themeToggle:    q('themeToggle'),
             favToggle:      q('favoritesToggle'),
             modal:          q('bookModal'),
-            
-            // Modal 3 columns IDs
-            modalImage:     q('modalImage'), // Left
-            modalTitle:     q('modalTitle'), // Center
+            modalImage:     q('modalImage'),
+            modalTitle:     q('modalTitle'),
             modalAuthor:    q('modalAuthor'),
             modalDate:      q('modalDate'),
             modalPurpose:   q('modalPurpose'),
             modalGenre:     q('modalGenre'),
             modalBadge:     q('modalBadge'),
             modalFavBtn:    q('modalFavBtn'),
-            modalFirstPage: q('modalFirstPage'), // Right
-
+            modalFirstPage: q('modalFirstPage'),
             closeBtn:       q('closeBtn'),
             backdrop:       document.querySelector('.modal-backdrop'),
             themeIcon:      document.querySelector('#themeToggle i')
@@ -242,10 +239,7 @@ const App = {
         const { DOM } = this;
         this.state.currentModalBook = book;
 
-        // 1. Left Column: Set Image
         DOM.modalImage.src = book.image;
-        
-        // 2. Middle Column: Set all details
         DOM.modalTitle.textContent = book.title;
         DOM.modalAuthor.innerHTML = `<i class="fa-solid fa-pen-nib"></i> ${this.esc(book.author)}`;
         DOM.modalDate.textContent = book.purchaseDate || '—';
@@ -253,26 +247,33 @@ const App = {
         DOM.modalGenre.textContent = book.genre || '—';
         DOM.modalBadge.textContent = `#${book.collectionNumber || ''}`;
         this.syncModalFavBtn(book.title);
-
-        // 3. Right Column: First Page Image 
-        // Reads from JSON. Falls back to default beautiful page if not in JSON yet.
+        
         DOM.modalFirstPage.src = book.firstPageImage || 'https://images.unsplash.com/photo-1594955325515-388277a060e8?q=80&w=800&auto=format&fit=crop';
 
+        // History API setup for phone back button
+        history.pushState({ modalOpen: true }, '', '#book-details');
+        
         DOM.modal.classList.add('open');
         document.body.style.overflow = 'hidden';
     },
 
-    closeModal() {
+    closeModal(fromPopState = false) {
+        if (!this.DOM.modal.classList.contains('open')) return;
+
         this.DOM.modal.classList.remove('open');
         document.body.style.overflow = '';
         this.state.currentModalBook = null;
+
+        // If user clicked 'X' or backdrop, go back in history to clean URL
+        if (!fromPopState) {
+            history.back();
+        }
     },
 
     syncModalFavBtn(title) {
         const isFav = this.state.favorites.includes(title);
         const btn = this.DOM.modalFavBtn;
         btn.classList.toggle('favorited', isFav);
-        // Added text back to modal button as requested
         btn.innerHTML = isFav ? '<i class="fa-solid fa-heart"></i> Remove from Favourites' : '<i class="fa-regular fa-heart"></i> Add to Favourites';
     },
 
@@ -327,8 +328,18 @@ const App = {
         
         DOM.closeBtn.addEventListener('click', () => this.closeModal());
         DOM.backdrop.addEventListener('click', () => this.closeModal());
-        document.addEventListener('keydown', e => { if (e.key === 'Escape' && DOM.modal.classList.contains('open')) this.closeModal(); });
         
+        document.addEventListener('keydown', e => { 
+            if (e.key === 'Escape' && DOM.modal.classList.contains('open')) this.closeModal(); 
+        });
+        
+        // Handle Mobile Back Button (History API)
+        window.addEventListener('popstate', (e) => {
+            if (DOM.modal.classList.contains('open')) {
+                this.closeModal(true); // true means it came from back button
+            }
+        });
+
         DOM.modalFavBtn.addEventListener('click', () => { 
             if (this.state.currentModalBook) this.toggleFavorite(this.state.currentModalBook.title, DOM.modalFavBtn); 
         });
