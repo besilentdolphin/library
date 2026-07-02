@@ -2219,7 +2219,6 @@
         "image": "images/shyamol-chaya.jpg",
         "firstPageImage": "images/shyamol-chaya-page.jpg"
     },
-    [
     {
         "collectionNumber": 223,
         "title": "নেমেসিস",
@@ -2281,7 +2280,7 @@
         "firstPageImage": "images/next-page.jpg"
     },
     {
-        "collectionNumber": 228,
+        "collectionNumber": 229,
         "title": "কন্ট্রোল",
         "author": "Mohammad Nazim Uddin",
         "purchaseDate": "TBD",
@@ -2292,5 +2291,4 @@
     }
 
     
-]
 ]
