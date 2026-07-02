@@ -65,6 +65,14 @@ const App = {
             this.DOM.showingCount.textContent = data.length;
 
             this.populateFilters(data);
+            
+            // Set Initial History State for Page 1 on load
+            if (history.state && history.state.type === 'page') {
+                this.state.currentPage = history.state.page;
+            } else {
+                history.replaceState({ type: 'page', page: 1 }, '', '#page-1');
+            }
+
             this.displayBooks();
         } catch (err) {
             this.DOM.grid.innerHTML = `
@@ -115,7 +123,11 @@ const App = {
         );
 
         this.state.filteredBooks = filtered;
-        this.state.currentPage = 1;
+        this.state.currentPage = 1; // Reset to page 1 on filter
+        
+        // Push filter reset to history
+        history.pushState({ type: 'page', page: 1 }, '', '#page-1');
+        
         this.DOM.showingCount.textContent = filtered.length;
         this.displayBooks();
     },
@@ -205,9 +217,15 @@ const App = {
         this.DOM.pagination.appendChild(makeBtn('<i class="fa-solid fa-chevron-right"></i>', currentPage + 1, currentPage === totalPages));
     },
 
-    changePage(page) {
+    changePage(page, fromPopState = false) {
         this.state.currentPage = page;
         this.displayBooks();
+        
+        // Push State for Back Button if not triggered by Back Button itself
+        if (!fromPopState) {
+            history.pushState({ type: 'page', page: page }, '', `#page-${page}`);
+        }
+        
         const top = this.DOM.grid.getBoundingClientRect().top + window.scrollY - 100;
         window.scrollTo({ top, behavior: 'smooth' });
     },
@@ -250,8 +268,8 @@ const App = {
         
         DOM.modalFirstPage.src = book.firstPageImage || 'https://images.unsplash.com/photo-1594955325515-388277a060e8?q=80&w=800&auto=format&fit=crop';
 
-        // History API setup for phone back button
-        history.pushState({ modalOpen: true }, '', '#book-details');
+        // History API setup for Modal
+        history.pushState({ type: 'modal' }, '', '#book-details');
         
         DOM.modal.classList.add('open');
         document.body.style.overflow = 'hidden';
@@ -264,7 +282,6 @@ const App = {
         document.body.style.overflow = '';
         this.state.currentModalBook = null;
 
-        // If user clicked 'X' or backdrop, go back in history to clean URL
         if (!fromPopState) {
             history.back();
         }
@@ -333,10 +350,20 @@ const App = {
             if (e.key === 'Escape' && DOM.modal.classList.contains('open')) this.closeModal(); 
         });
         
-        // Handle Mobile Back Button (History API)
+        // --- SMART BACK BUTTON LOGIC ADDED HERE ---
         window.addEventListener('popstate', (e) => {
+            // First Priority: Close Modal if open
             if (DOM.modal.classList.contains('open')) {
-                this.closeModal(true); // true means it came from back button
+                this.closeModal(true); 
+                return;
+            }
+
+            // Second Priority: Change Page based on browser history state
+            if (e.state && e.state.type === 'page') {
+                this.changePage(e.state.page, true); 
+            } else {
+                // Default fail-safe if no state
+                this.changePage(1, true); 
             }
         });
 
