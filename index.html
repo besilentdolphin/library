@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Explore Raisa & Sara's curated personal book collection." />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Raisa & Sara's Personal Library</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script defer src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body class="theme-dark">
+
+    <div class="bg-photo" aria-hidden="true"></div>
+    <div class="bg-overlay" aria-hidden="true"></div>
+    <div id="tsparticles" aria-hidden="true"></div>
+
+    <nav class="navbar glass-panel" role="navigation">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <span class="logo-icon"><i class="fa-solid fa-book-journal-whills"></i></span>
+                <span class="logo-text">Raisa <span class="logo-amp">&</span> Sara</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#library">Library</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-right">
+            <button id="favoritesToggle" class="icon-btn" aria-label="Show Favorites">
+                <i class="fa-solid fa-heart"></i>
+            </button>
+            <button id="themeToggle" class="icon-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container" id="home">
+        <header class="hero" role="banner">
+            <div class="hero-inner glass-panel">
+                <p class="hero-eyebrow"><i class="fa-solid fa-location-dot"></i> Radhanagar, Pabna-6600</p>
+                <h1 class="hero-title">
+                    Raisa <em>&amp;</em> Sara's<br>Personal Library
+                </h1>
+                <p class="hero-subtitle">A curated collection of beautiful minds and timeless stories.</p>
+            </div>
+        </header>
+
+        <section class="controls" id="library">
+            <div class="modern-input">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search by title or author…" autocomplete="off">
+                <i class="fa-solid fa-xmark search-clear" id="searchClear"></i>
+            </div>
+            <div class="modern-input">
+                <i class="fa-solid fa-user-pen"></i>
+                <select id="authorFilter">
+                    <option value="all">All Authors</option>
+                </select>
+            </div>
+            <div class="modern-input">
+                <i class="fa-solid fa-layer-group"></i>
+                <select id="genreFilter">
+                    <option value="all">All Genres</option>
+                </select>
+            </div>
+        </section>
+
+        <div class="stats-bar" id="statsBar">
+            <span class="stat-pill glass-panel"><i class="fa-solid fa-book-bookmark"></i> <span id="totalBooksCount">0</span> Total Books</span>
+            <span class="stat-pill glass-panel" id="showingPill"><i class="fa-solid fa-eye"></i> Showing <span id="showingCount">0</span></span>
+        </div>
+
+        <main class="books-grid" id="booksGrid"></main>
+
+        <nav class="pagination" id="pagination"></nav>
+    </div>
+
+    <section id="contact" class="contact-section">
+        <div class="contact-card glass-panel">
+            <h2>Get in Touch</h2>
+            <p>Want to borrow a book or discuss literature? Let's connect.</p>
+            <div class="contact-links">
+                <a href="mailto:hello@example.com" class="contact-btn"><i class="fa-solid fa-envelope"></i> Email Us</a>
+                <a href="#" class="contact-btn"><i class="fa-brands fa-facebook"></i> Facebook</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer glass-panel">
+        <p>Curated with <i class="fa-solid fa-heart" style="color:var(--accent)"></i> by Raisa &amp; Sara</p>
+    </footer>
+
+    <div class="modal" id="bookModal" role="dialog">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content book-wrapper">
+            <div class="modal-body book-open">
+                
+                <div class="modal-cover-side">
+                    <img id="modalImage" src="" alt="Book Cover">
+                </div>
+                
+                <div class="modal-info-center">
+                    <button class="modal-close" id="closeBtn" aria-label="Close modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    
+                    <span class="modal-badge" id="modalBadge">#1</span>
+                    <h2 id="modalTitle" class="modal-book-title">Book Title</h2>
+                    <h3 id="modalAuthor" class="modal-author"><i class="fa-solid fa-pen-nib"></i> Author Name</h3>
+                    
+                    <div class="modal-divider"></div>
+                    
+                    <div class="modal-meta">
+                        <div class="meta-item">
+                            <span class="meta-label"><i class="fa-solid fa-calendar-days"></i> Purchase Date</span>
+                            <span class="meta-value" id="modalDate">—</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label"><i class="fa-solid fa-bullseye"></i> Purpose</span>
+                            <span class="meta-value" id="modalPurpose">—</span>
+                        </div>
+                        <div class="meta-item" id="modalGenreWrap">
+                            <span class="meta-label"><i class="fa-solid fa-layer-group"></i> Genre</span>
+                            <span class="meta-value" id="modalGenre">—</span>
+                        </div>
+                    </div>
+                    
+                    <button class="modal-fav-btn" id="modalFavBtn">
+                        <i class="fa-regular fa-heart"></i> Add to Favourites
+                    </button>
+                </div>
+
+                <div class="modal-first-page-side">
+                    <img id="modalFirstPage" src="" alt="First Page of Book">
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
