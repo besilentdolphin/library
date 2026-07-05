@@ -34,6 +34,7 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#library">Library</a></li>
+                <li><a href="#" id="viewToggleBtn"><i class="fa-solid fa-list"></i> Booklist</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -84,7 +85,7 @@
             <span class="stat-pill glass-panel" id="showingPill"><i class="fa-solid fa-eye"></i> Showing <span id="showingCount">0</span></span>
         </div>
 
-        <main class="books-grid" id="booksGrid"></main>
+        <main id="booksGrid"></main>
 
         <nav class="pagination" id="pagination"></nav>
     </div>
@@ -117,13 +118,10 @@
                     <button class="modal-close" id="closeBtn" aria-label="Close modal">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
-                    
                     <span class="modal-badge" id="modalBadge">#1</span>
                     <h2 id="modalTitle" class="modal-book-title">Book Title</h2>
                     <h3 id="modalAuthor" class="modal-author"><i class="fa-solid fa-pen-nib"></i> Author Name</h3>
-                    
                     <div class="modal-divider"></div>
-                    
                     <div class="modal-meta">
                         <div class="meta-item">
                             <span class="meta-label"><i class="fa-solid fa-calendar-days"></i> Purchase Date</span>
@@ -138,7 +136,6 @@
                             <span class="meta-value" id="modalGenre">—</span>
                         </div>
                     </div>
-                    
                     <button class="modal-fav-btn" id="modalFavBtn">
                         <i class="fa-regular fa-heart"></i> Add to Favourites
                     </button>

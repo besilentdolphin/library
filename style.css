@@ -47,7 +47,7 @@
 html { scroll-behavior: smooth; }
 body { 
     font-family: var(--font-sans); color: var(--text); min-height: 100vh; overflow-x: hidden; transition: color 0.5s var(--ease);
-    padding-top: 72px; /* Prevent content from hiding under fixed navbar */
+    padding-top: 72px; 
 }
 ::selection { background: var(--accent); color: #fff; }
 
@@ -57,10 +57,10 @@ body {
 
 .glass-panel { background: var(--bg-card); backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%); border: 1px solid var(--border); box-shadow: var(--shadow-card); }
 
-/* NAVBAR */
+/* ── NAVBAR (Desktop & Mobile Optimized) ── */
 .navbar { 
     position: fixed; top: 0; left: 0; width: 100%; z-index: 999; 
-    padding: 0 40px; height: 72px; display: flex; align-items: center; justify-content: space-between; 
+    padding: 0 40px; min-height: 72px; display: flex; align-items: center; justify-content: space-between; 
     border-bottom: 1px solid var(--border); border-radius: 0 0 var(--radius-lg) var(--radius-lg); 
 }
 .nav-left { display: flex; align-items: center; gap: 40px; }
@@ -98,8 +98,14 @@ body {
 .stat-pill { padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 500; color: var(--text-dim); display: flex; gap: 8px; align-items: center; }
 .stat-pill i { color: var(--accent); }
 
-/* BOOKS GRID */
-.books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 50px 25px; padding-bottom: 40px; min-height: 300px; }
+/* ── BOOKS GRID (Desktop Optimized for 10 books) ── */
+.books-grid { 
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr); /* 5 columns x 2 rows = 10 books perfectly */
+    gap: 40px 25px; 
+    padding-bottom: 40px; 
+    min-height: 300px; 
+}
 .book-card { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; outline: none; animation: card-in 0.6s var(--ease-spring) both; }
 @keyframes card-in { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .book-cover-container { position: relative; width: 100%; display: flex; justify-content: center; }
@@ -114,10 +120,43 @@ body {
 .book-card:hover .book-info h3 { color: var(--accent); }
 .book-info p { font-size: 0.8rem; font-weight: 400; color: var(--text-dim); margin-top: 4px; }
 
-/* PAGINATION */
-.pagination { display: flex; justify-content: center; gap: 6px; margin: 30px 0 60px; flex-wrap: wrap; }
+/* ── BOOKLIST TABLE VIEW (Excel Style) ── */
+.books-list-container {
+    width: 100%; overflow-x: auto; margin-bottom: 40px;
+    background: var(--bg-card); backdrop-filter: blur(12px);
+    border: 1px solid var(--border); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+}
+.books-table {
+    width: 100%; min-width: 700px; border-collapse: collapse; text-align: left;
+}
+.books-table th, .books-table td {
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+}
+.books-table th {
+    background: rgba(0,0,0,0.3); color: var(--accent);
+    font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
+}
+.theme-light .books-table th { background: rgba(0,0,0,0.05); }
+.books-table tbody tr {
+    transition: 0.3s; cursor: pointer; color: var(--text-dim); font-size: 0.95rem;
+}
+.books-table tbody tr:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+.theme-light .books-table tbody tr:hover { background: rgba(0,0,0,0.03); }
+.list-cover-img { width: 45px; height: 65px; object-fit: cover; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+.list-fav-btn { cursor: pointer; color: var(--text-muted); font-size: 1.1rem; transition: 0.3s; }
+.list-fav-btn:hover, .list-fav-btn.favorited { color: var(--accent); transform: scale(1.2); }
+.list-title { font-weight: 600; color: var(--text); }
+
+/* PAGINATION & JUMP BOX */
+.pagination { display: flex; justify-content: center; align-items: center; gap: 6px; margin: 30px 0 60px; flex-wrap: wrap; }
 .pagination button { min-width: 40px; height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-card); color: var(--text-dim); backdrop-filter: blur(12px); font-family: var(--font-sans); font-weight: 500; cursor: pointer; transition: 0.3s; }
 .pagination button:hover:not(:disabled), .pagination button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.page-jump-wrap { display: flex; align-items: center; gap: 8px; margin-left: 15px; color: var(--text-dim); font-weight: 500; font-size: 0.95rem; }
+.page-jump-input { width: 50px; height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-card); color: var(--text); text-align: center; font-family: var(--font-sans); font-weight: 600; outline: none; backdrop-filter: blur(12px); transition: 0.3s; }
+.page-jump-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
+.page-jump-input::-webkit-outer-spin-button, .page-jump-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.page-jump-input[type=number] { -moz-appearance: textfield; }
 
 /* CONTACT */
 .contact-section { padding: 30px 20px 40px; display: flex; justify-content: center; }
@@ -129,43 +168,20 @@ body {
 .contact-btn:hover { background: var(--accent); color: #fff; }
 .footer { text-align: center; padding: 25px; border-top: 1px solid var(--border); border-radius: var(--radius-xl) var(--radius-xl) 0 0; color: var(--text-muted); font-size: 0.85rem; }
 
-/* ── 3-COLUMN MODAL LAYOUT ── */
+/* MODAL */
 .modal { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
 .modal.open { display: flex; }
 .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
 
-.book-wrapper {
-    position: relative; z-index: 1; width: 100%; max-width: 1050px;
-    background: #111; padding: 6px; border-radius: 6px 12px 12px 6px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.9); display: flex;
-}
+.book-wrapper { position: relative; z-index: 1; width: 100%; max-width: 1050px; background: #111; padding: 6px; border-radius: 6px 12px 12px 6px; box-shadow: 0 30px 60px rgba(0,0,0,0.9); display: flex; }
+.book-open { display: flex; flex-direction: row; width: 100%; background: #1a1a1a; border-radius: 4px 8px 8px 4px; overflow: hidden; gap: 2px; }
 
-.book-open {
-    display: flex; flex-direction: row; width: 100%;
-    background: #1a1a1a; border-radius: 4px 8px 8px 4px;
-    overflow: hidden; gap: 2px;
-}
-
-/* 1. Left Column: Cover Image */
-.modal-cover-side {
-    flex: 1; background: #0f172a; padding: 30px;
-    display: flex; justify-content: center; align-items: center;
-}
+.modal-cover-side { flex: 1; background: #0f172a; padding: 30px; display: flex; justify-content: center; align-items: center; }
 .modal-cover-side img { width: 100%; max-width: 260px; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
 
-/* 2. Middle Column: Text Details */
-.modal-info-center {
-    flex: 1.3; background: #1e293b; padding: 40px 30px;
-    display: flex; flex-direction: column; position: relative;
-    color: #e2e8f0;
-}
+.modal-info-center { flex: 1.3; background: #1e293b; padding: 40px 30px; display: flex; flex-direction: column; position: relative; color: #e2e8f0; }
 .theme-light .modal-info-center { background: #fdf8ef; color: #1a1511; }
-
-.modal-close {
-    position: absolute; top: 15px; right: 15px; z-index: 10;
-    width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
-    background: transparent; color: inherit; cursor: pointer; transition: 0.3s;
-}
+.modal-close { position: absolute; top: 15px; right: 15px; z-index: 10; width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: inherit; cursor: pointer; transition: 0.3s; }
 .theme-light .modal-close { border-color: rgba(0,0,0,0.2); }
 .modal-close:hover { background: #ef4444; color: #fff; border-color: #ef4444; transform: rotate(90deg); }
 
@@ -174,46 +190,36 @@ body {
 .modal-author { font-size: 1rem; font-weight: 400; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
 .modal-divider { height: 1px; background: linear-gradient(to right, rgba(255,255,255,0.1), transparent); margin: 20px 0; }
 .theme-light .modal-divider { background: linear-gradient(to right, rgba(0,0,0,0.1), transparent); }
-
 .modal-meta { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
 .meta-item { display: flex; flex-direction: column; gap: 4px; }
 .meta-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); display: flex; align-items: center; gap: 8px; }
 .meta-value { font-size: 1rem; font-weight: 400; }
-
-.modal-fav-btn {
-    padding: 12px 20px; border-radius: 30px; border: 1px solid var(--border);
-    background: rgba(255,255,255,0.05); color: inherit; font-weight: 500; font-size: 0.9rem;
-    cursor: pointer; transition: 0.3s; width: fit-content; display: flex; align-items: center; gap: 8px; margin-top: auto;
-}
+.modal-fav-btn { padding: 12px 20px; border-radius: 30px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: inherit; font-weight: 500; font-size: 0.9rem; cursor: pointer; transition: 0.3s; width: fit-content; display: flex; align-items: center; gap: 8px; margin-top: auto; }
 .theme-light .modal-fav-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.2); }
 .modal-fav-btn:hover, .modal-fav-btn.favorited { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-/* 3. Right Column: First Page Image (Fixed Object Fit) */
-.modal-first-page-side {
-    flex: 1; background: #0f172a;
-    display: flex; justify-content: center; align-items: center;
-    overflow: hidden; padding: 10px;
-}
-/* Fixed here: object-fit contain makes sure the full page is visible and not cropped */
+.modal-first-page-side { flex: 1; background: #0f172a; display: flex; justify-content: center; align-items: center; overflow: hidden; padding: 10px; }
 .modal-first-page-side img { width: 100%; height: 100%; object-fit: contain; }
 
 /* ── PHONE / RESPONSIVE OPTIMIZATION ── */
+@media (max-width: 1200px) { .books-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (max-width: 900px) {
-    .nav-links { display: none; }
+    .books-grid { grid-template-columns: repeat(3, 1fr); }
     .book-open { flex-direction: column; overflow-y: auto; max-height: 85vh; }
     .modal-cover-side, .modal-info-center, .modal-first-page-side { width: 100%; flex: none; }
     .modal-first-page-side { height: 400px; }
+    
+    /* Mobile Navbar Fix */
+    body { padding-top: 110px; }
+    .navbar { flex-direction: column; justify-content: center; padding: 12px 20px; gap: 12px; border-radius: 0; min-height: auto; }
+    .nav-left { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .nav-right { position: absolute; top: 12px; right: 20px; }
+    .nav-links { display: flex !important; width: 100%; justify-content: center; gap: 15px; margin-left: 0; padding-top: 10px; border-top: 1px solid var(--border); flex-wrap: wrap; }
 }
 @media (max-width: 640px) {
-    body { padding-top: 60px; } /* Adjust for smaller navbar */
-    .navbar { padding: 0 16px; height: 60px; }
-    
-    /* Make Title Visible but fit properly */
-    .nav-left { gap: 10px; }
+    body { padding-top: 120px; } 
     .nav-logo { font-size: 1.1rem; gap: 6px; }
     .logo-text { display: block; } 
-
-    .nav-right { gap: 8px; }
     .icon-btn { width: 36px; height: 36px; font-size: 0.9rem; }
     
     .container { padding: 0 16px; }
@@ -223,54 +229,10 @@ body {
     .controls { flex-direction: column; gap: 10px; }
     .modern-input { width: 100%; min-width: 100%; padding: 4px 16px; }
     
-    .books-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 30px 15px; }
+    .books-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 15px; }
     
     .modal { padding: 10px; }
     .modal-cover-side { padding: 20px; }
     .modal-info-center { padding: 25px 20px; }
     .modal-first-page-side { height: 350px; }
-}
-/* ── JUMP TO PAGE (ADD THIS TO YOUR CSS) ── */
-.pagination { 
-    display: flex; justify-content: center; align-items: center; 
-    gap: 8px; margin: 30px 0 60px; flex-wrap: wrap; 
-}
-.page-jump-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-left: 15px;
-    color: var(--text-dim);
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-.page-jump-input {
-    width: 50px;
-    height: 42px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    background: var(--bg-card);
-    color: var(--text);
-    text-align: center;
-    font-family: var(--font-sans);
-    font-weight: 600;
-    outline: none;
-    backdrop-filter: blur(12px);
-    transition: 0.3s;
-}
-.page-jump-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
-}
-.theme-light .page-jump-input:focus {
-    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-}
-/* Hide the default up/down arrows in the number input */
-.page-jump-input::-webkit-outer-spin-button,
-.page-jump-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-.page-jump-input[type=number] {
-    -moz-appearance: textfield;
 }
