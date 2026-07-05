@@ -78,7 +78,6 @@ const App = {
         } catch (err) {
             console.error("Book Loading Error:", err);
             
-            // Smart Error Message
             let errorMsg = err.message;
             if (err.name === 'SyntaxError' || errorMsg.includes('JSON')) {
                 errorMsg = "আপনার books.json ফাইলে কোনো ব্র্যাকেট ({}) বা কমা (,) দিতে ভুল হয়েছে। দয়া করে JSON ফাইলটি চেক করুন।";
@@ -92,7 +91,6 @@ const App = {
                         <i class="fa-solid fa-triangle-exclamation" style="font-size: 2.5rem; color: #ef4444; margin-bottom:12px;"></i>
                         <h3 style="color: #ef4444; margin-bottom: 10px; font-family: var(--font-serif); font-size: 1.8rem;">বই লোড হচ্ছে না!</h3>
                         <p style="font-size: 1.1rem; color: var(--text-dim); margin-bottom: 15px;">${errorMsg}</p>
-                        <p style="font-size: 0.85rem; color: #ef4444; opacity: 0.8;">Technical details: ${err.message}</p>
                     </div>`;
                 this.DOM.grid.className = '';
             }
@@ -166,7 +164,6 @@ const App = {
         const start   = (currentPage - 1) * booksPerPage;
         const visible = filteredBooks.slice(start, start + booksPerPage);
 
-        // GRID VIEW
         if (viewMode === 'grid') {
             this.DOM.grid.className = 'books-grid';
             const fragment = document.createDocumentFragment();
@@ -201,7 +198,6 @@ const App = {
             });
             this.DOM.grid.appendChild(fragment);
         } 
-        // TABLE VIEW
         else {
             this.DOM.grid.className = 'books-list-container';
             const table = document.createElement('table');
@@ -291,7 +287,6 @@ const App = {
 
         this.DOM.pagination.appendChild(makeBtn('<i class="fa-solid fa-chevron-right"></i>', currentPage + 1, currentPage === totalPages));
 
-        // Jump to Page Feature
         const jumpWrap = document.createElement('div');
         jumpWrap.className = 'page-jump-wrap';
         jumpWrap.innerHTML = `<span>Jump:</span>`;

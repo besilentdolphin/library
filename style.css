@@ -44,9 +44,14 @@
     --shelf-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; /* Fixes horizontal scroll glitch */
+}
+
 html { scroll-behavior: smooth; }
 body { 
-    font-family: var(--font-sans); color: var(--text); min-height: 100vh; overflow-x: hidden; transition: color 0.5s var(--ease);
+    font-family: var(--font-sans); color: var(--text); min-height: 100vh; transition: color 0.5s var(--ease);
     padding-top: 72px; 
 }
 ::selection { background: var(--accent); color: #fff; }
@@ -57,7 +62,7 @@ body {
 
 .glass-panel { background: var(--bg-card); backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%); border: 1px solid var(--border); box-shadow: var(--shadow-card); }
 
-/* ── NAVBAR (Desktop & Mobile Optimized) ── */
+/* ── NAVBAR ── */
 .navbar { 
     position: fixed; top: 0; left: 0; width: 100%; z-index: 999; 
     padding: 0 40px; min-height: 72px; display: flex; align-items: center; justify-content: space-between; 
@@ -66,8 +71,9 @@ body {
 .nav-left { display: flex; align-items: center; gap: 40px; }
 .nav-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; white-space: nowrap; }
 .logo-amp { font-style: italic; font-weight: 400; opacity: 0.8; }
-.nav-links { display: flex; gap: 24px; list-style: none; margin-left: 20px;}
-.nav-links a { text-decoration: none; color: var(--text-dim); font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
+.nav-links { display: flex; gap: 24px; list-style: none; margin-left: 10px;}
+.nav-links a { text-decoration: none; color: var(--text-dim); font-weight: 500; font-size: 0.95rem; transition: color 0.3s; display: flex; align-items: center; gap: 6px; }
+.nav-links a i { font-size: 1.1em; }
 .nav-links a:hover { color: var(--accent); }
 .nav-right { display: flex; gap: 12px; }
 .icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: var(--text-dim); cursor: pointer; display: grid; place-items: center; transition: all var(--duration); }
@@ -98,14 +104,8 @@ body {
 .stat-pill { padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 500; color: var(--text-dim); display: flex; gap: 8px; align-items: center; }
 .stat-pill i { color: var(--accent); }
 
-/* ── BOOKS GRID (Desktop Optimized for 10 books) ── */
-.books-grid { 
-    display: grid; 
-    grid-template-columns: repeat(5, 1fr); /* 5 columns x 2 rows = 10 books perfectly */
-    gap: 40px 25px; 
-    padding-bottom: 40px; 
-    min-height: 300px; 
-}
+/* ── BOOKS GRID ── */
+.books-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 40px 25px; padding-bottom: 40px; min-height: 300px; }
 .book-card { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; outline: none; animation: card-in 0.6s var(--ease-spring) both; }
 @keyframes card-in { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .book-cover-container { position: relative; width: 100%; display: flex; justify-content: center; }
@@ -120,27 +120,19 @@ body {
 .book-card:hover .book-info h3 { color: var(--accent); }
 .book-info p { font-size: 0.8rem; font-weight: 400; color: var(--text-dim); margin-top: 4px; }
 
-/* ── BOOKLIST TABLE VIEW (Excel Style) ── */
+/* ── BOOKLIST TABLE VIEW ── */
 .books-list-container {
     width: 100%; overflow-x: auto; margin-bottom: 40px;
     background: var(--bg-card); backdrop-filter: blur(12px);
     border: 1px solid var(--border); border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
+    -webkit-overflow-scrolling: touch; /* Smooth scroll on mobile */
 }
-.books-table {
-    width: 100%; min-width: 700px; border-collapse: collapse; text-align: left;
-}
-.books-table th, .books-table td {
-    padding: 16px 20px; border-bottom: 1px solid var(--border);
-}
-.books-table th {
-    background: rgba(0,0,0,0.3); color: var(--accent);
-    font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
-}
+.books-table { width: 100%; min-width: 700px; border-collapse: collapse; text-align: left; }
+.books-table th, .books-table td { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.books-table th { background: rgba(0,0,0,0.3); color: var(--accent); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 .theme-light .books-table th { background: rgba(0,0,0,0.05); }
-.books-table tbody tr {
-    transition: 0.3s; cursor: pointer; color: var(--text-dim); font-size: 0.95rem;
-}
+.books-table tbody tr { transition: 0.3s; cursor: pointer; color: var(--text-dim); font-size: 0.95rem; }
 .books-table tbody tr:hover { background: rgba(255,255,255,0.05); color: var(--text); }
 .theme-light .books-table tbody tr:hover { background: rgba(0,0,0,0.03); }
 .list-cover-img { width: 45px; height: 65px; object-fit: cover; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
@@ -148,7 +140,7 @@ body {
 .list-fav-btn:hover, .list-fav-btn.favorited { color: var(--accent); transform: scale(1.2); }
 .list-title { font-weight: 600; color: var(--text); }
 
-/* PAGINATION & JUMP BOX */
+/* PAGINATION */
 .pagination { display: flex; justify-content: center; align-items: center; gap: 6px; margin: 30px 0 60px; flex-wrap: wrap; }
 .pagination button { min-width: 40px; height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-card); color: var(--text-dim); backdrop-filter: blur(12px); font-family: var(--font-sans); font-weight: 500; cursor: pointer; transition: 0.3s; }
 .pagination button:hover:not(:disabled), .pagination button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
@@ -209,18 +201,28 @@ body {
     .modal-cover-side, .modal-info-center, .modal-first-page-side { width: 100%; flex: none; }
     .modal-first-page-side { height: 400px; }
     
-    /* Mobile Navbar Fix */
-    body { padding-top: 110px; }
-    .navbar { flex-direction: column; justify-content: center; padding: 12px 20px; gap: 12px; border-radius: 0; min-height: auto; }
-    .nav-left { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    .nav-right { position: absolute; top: 12px; right: 20px; }
-    .nav-links { display: flex !important; width: 100%; justify-content: center; gap: 15px; margin-left: 0; padding-top: 10px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    body { padding-top: 130px; }
+    .navbar { flex-direction: column; justify-content: center; padding: 15px 20px; gap: 15px; border-radius: 0; min-height: auto; }
+    .nav-left { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+    .nav-right { position: absolute; top: 15px; right: 20px; }
+    
+    /* Guchano Mobile Menu (Pill Shape) */
+    .nav-links { 
+        display: flex !important; width: 100%; justify-content: center; gap: 10px; margin-left: 0; 
+        padding-top: 15px; border-top: 1px solid var(--border); flex-wrap: wrap; 
+    }
+    .nav-links a {
+        background: rgba(255,255,255,0.08); padding: 8px 16px; border-radius: 30px; 
+        font-size: 0.85rem; border: 1px solid var(--border);
+    }
+    .theme-light .nav-links a { background: rgba(0,0,0,0.04); }
 }
 @media (max-width: 640px) {
-    body { padding-top: 120px; } 
-    .nav-logo { font-size: 1.1rem; gap: 6px; }
+    body { padding-top: 140px; } 
+    .nav-logo { font-size: 1.2rem; gap: 6px; }
     .logo-text { display: block; } 
-    .icon-btn { width: 36px; height: 36px; font-size: 0.9rem; }
+    .icon-btn { width: 38px; height: 38px; font-size: 0.95rem; }
+    .nav-right { top: 12px; }
     
     .container { padding: 0 16px; }
     .hero-inner { padding: 30px 20px; }
@@ -230,6 +232,12 @@ body {
     .modern-input { width: 100%; min-width: 100%; padding: 4px 16px; }
     
     .books-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 15px; }
+    
+    /* Smooth & Compact Mobile List View */
+    .books-list-container { margin: 0 -16px; width: calc(100% + 32px); border-radius: 0; border-left: none; border-right: none; }
+    .books-table { min-width: 500px; }
+    .books-table th, .books-table td { padding: 12px 10px; font-size: 0.85rem; }
+    .list-cover-img { width: 40px; height: 60px; }
     
     .modal { padding: 10px; }
     .modal-cover-side { padding: 20px; }
